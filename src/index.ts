@@ -8,18 +8,24 @@ const os = require("os");
 const hbs = require("hbs");
 
 app.set("view engine", "hbs");
+console.log(__dirname);
+hbs.registerPartials("/usr/src/app/src" + "/views/partials");
 app.use(express.static(__dirname + "/public"));
 
 app.get("/", (req, res) => {
-  res.send("<h1>Hello, Express</h1>");
+  res.render("about.hbs", {
+    pageTitle: "Home Page",
+    content: "当ホームページへようこそ",
+    currentYear: new Date().getFullYear(),
+  });
 });
 
 app.get("/about", (req, res) => {
-  res.render("about.hbs");
-  // res.send("aaa");
+  res.render("about.hbs", {
+    pageTitle: "About Page",
+    content: "コンテンツです",
+    currentYear: new Date().getFullYear(),
+  });
 });
-
-// app.use(express.json());
-// app.use("/users", userController);
 
 app.listen(3000);
